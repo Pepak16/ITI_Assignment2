@@ -22,5 +22,7 @@ class Database extends DB_Config {
 	public function __destruct() {
 		$this->conn = null;
 	}
+
+	
 	
 }
