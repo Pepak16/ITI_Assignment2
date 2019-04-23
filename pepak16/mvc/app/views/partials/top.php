@@ -1,8 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../app/views/style/style.css">
-
-<?php 
-    include 'ViewController.php'; 
-?>
+<link rel="stylesheet" type="text/css" href="/pepak16/mvc/app/views/style/style.css">
 
 <script src="ajax.js"></script>
 
@@ -20,7 +16,7 @@
             // echo "<li><p>You are logged in as:".$_SESSION["logged_in"]."</p></li>";
             
         } else {
-            echo "<li><a href=\"../app/views/home/login.php\">Login</a></li>";
+            echo "<li><a href=\"../mvc/app/views/home/login.php\">Login</a></li>";
             echo "<li><a href=\"../app/views/home/register.php\">Signup</a></li>";
         }
       
