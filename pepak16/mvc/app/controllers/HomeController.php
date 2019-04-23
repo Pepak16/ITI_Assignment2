@@ -2,10 +2,11 @@
 
 class HomeController extends Controller {
 	
-	public function index ($param) {
+	public function index () {
 		//This is a proof of concept - we do NOT want HTML in the controllers!
-		echo '<br><br>Home Controller Index Method<br>';
-		echo 'Param: ' . $param . '<br><br>';
+		//echo '<br><br>Home Controller Index Method<br>';
+		// echo 'Param: ' . $param . '<br><br>';
+		//header('Location: app/views/index.php');
 	}
 	
 	public function other ($param1 = 'first parameter', $param2 = 'second parameter') {
@@ -20,8 +21,11 @@ class HomeController extends Controller {
 	}
 	
 	public function login() {
-		$_SESSION['logged_in'] = true;
-		$this->view('home/login');
+		require 'db_connect.php';
+        if (authentificateUser($username,$password)) {
+			$_SESSION['logged_in'] = true;
+			$this->view('home/login');
+        }
 	}
 	
 	public function logout() {
