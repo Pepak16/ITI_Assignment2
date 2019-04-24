@@ -133,4 +133,5 @@ Hello there, <?=$viewbag['username']?> -->
         } ?>
     
     </body>
+    <div class="footer"></div>
 </html>

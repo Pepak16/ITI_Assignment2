@@ -4,10 +4,19 @@
 
 <div id="headertitle"><h1>Photoshare</h1></div>
 
+<?php
+    include '../app/controllers/HomeController.php';
+    $homecontroller = new HomeController();
+    
+    if (isset($_GET['option'])) {
+        echo $_GET['option'];
+        $homecontroller->changeMenuOptionTo($urlpart);
+    }
+?>
+
 <ul>
-    <li><a href="">Home</a></li>
+    <li><a href="?option=home">Home</a></li>
     <?php 
-        session_start();
 
         if ($_SESSION["logged_in"] == true) {
             
@@ -16,9 +25,9 @@
             // echo "<li><p>You are logged in as:".$_SESSION["logged_in"]."</p></li>";
             
         } else {
-            echo "<li><a href=\"../mvc/app/views/home/login.php\">Login</a></li>";
-            echo "<li><a href=\"../app/views/home/register.php\">Signup</a></li>";
+            echo "<li><a href=\"?option=login\">Login</a></li>";
+            echo "<li><a href=\"?option=register\">Signup</a></li>";
         }
-      
+
     ?>
 </ul>

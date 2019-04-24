@@ -41,5 +41,21 @@ class HomeController extends Controller {
 	public function loggedout() {
 		echo 'You are now logged out';
 	}
+
+	public function changeMenuOptionTo($name) {
+		switch ($name) {
+			case "home":
+				header('Location: $root/omhaw16/mvc/app/views/home/index.php');
+				break;
+			case "login":
+				header('Location: /mvc/public/home/login.php');
+				break;
+			case "register":
+				header('Location: /mvc/public/home/loggedout');
+				break;
+			default:
+				break;
+		}
+	}
 	
 }

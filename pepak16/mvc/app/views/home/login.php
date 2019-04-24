@@ -1,20 +1,14 @@
-<!-- <?php include '../app/views/partials/menu.php'; ?>
 
-You are now logged in!
-<br><br>
-<form method="POST" action="/mvc/public/home/logout">
-	<input type="submit" />
-</form> -->
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login page</title>
+    <?php include '../partials/top.php';?>
 </head>
     <body>
 		<?php 
-			include '../app/views/partials/top.php';
-
+			
 			$username = $_POST['username'];
 			$password = $_POST['password'];
 
