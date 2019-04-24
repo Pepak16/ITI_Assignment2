@@ -1,23 +1,23 @@
-
-
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Login page</title>
-    <?php include '../partials/top.php';?>
-</head>
+    <head>
+        <title>Login page</title>
+        <?php
+            include '../partials/top.php';
+            $homecontroller = new HomeController();
+        ?>
+    </head>
     <body>
-		<?php 
-			
+		<?php
 			$username = $_POST['username'];
-			$password = $_POST['password'];
-
+            $password = $_POST['password'];
+            
 			if (isset($_POST['submit'])) {
-				if (loginUser($username,$password)) {    
-						$_SESSION["logged_in"] = true;
-						echo 'You are now logged in';
-						$warningtext = "";
-						header('Location: login_succes_page.php');
+				if ($homecontroller->login($username,$password)) {    
+                    $_SESSION["logged_in"] = true;
+                    echo 'You are now logged in';
+                    $warningtext = "";
+                    header('Location: /mvc/public/home/succes_page.php');
 				} else {
 					$warningtext = "Wrong info.. Please try again.";
 				}
@@ -49,9 +49,8 @@
                 <br>
             </form> 
             <?php 
-            echo '<span style="color: red;">'.$warningtext.'</span>'; ?>
+                echo '<span style="color: red;">'.$warningtext.'</span>'; 
+            ?>
         </div>
     </body>
 </html>
-
-

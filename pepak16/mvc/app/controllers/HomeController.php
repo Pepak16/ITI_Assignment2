@@ -20,7 +20,7 @@ class HomeController extends Controller {
 		echo 'Welcome - you must be logged in';
 	}
 	
-	public function login() {
+	public function login($username,$password) {
 		require 'db_connect.php';
         if (authentificateUser($username,$password)) {
 			$_SESSION['logged_in'] = true;
