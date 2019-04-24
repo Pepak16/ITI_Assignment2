@@ -1,7 +1,3 @@
-<!-- <?php include '../app/views/partials/menu.php'; ?>
-
-Hello there, <?=$viewbag['username']?> -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -130,8 +126,9 @@ Hello there, <?=$viewbag['username']?> -->
     </div>
         <?php } else { 
             echo '</br></br><div id="content"><h2>For viewing/posting pictures, please login.</h2></div>';
-        } ?>
-    
+        } 
+        include '../app/views/partials/bot.php';
+        ?>
+
     </body>
-    <div class="footer"></div>
 </html>

@@ -1,5 +1,5 @@
 <?php
-
+require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/core/Controller.php';
 class HomeController extends Controller {
 	
 	public function index () {
@@ -45,13 +45,16 @@ class HomeController extends Controller {
 	public function changeMenuOptionTo($name) {
 		switch ($name) {
 			case "home":
-				header('Location: $root/omhaw16/mvc/app/views/home/index.php');
+				header('Location: /pepak16/mvc/public');
 				break;
 			case "login":
-				header('Location: /mvc/public/home/login.php');
+				header('Location: /pepak16/mvc/app/views/home/login.php');
 				break;
 			case "register":
-				header('Location: /mvc/public/home/loggedout');
+				header('Location: /pepak16/mvc/app/views/home/register.php');
+				break;
+			case "logout":
+				header('Location: /pepak16/mvc/app/views/home/loggedout.php');
 				break;
 			default:
 				break;

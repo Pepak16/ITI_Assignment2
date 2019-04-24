@@ -5,12 +5,11 @@
 <div id="headertitle"><h1>Photoshare</h1></div>
 
 <?php
-    include '../app/controllers/HomeController.php';
+    include_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/controllers/HomeController.php';
     $homecontroller = new HomeController();
-    
     if (isset($_GET['option'])) {
         echo $_GET['option'];
-        $homecontroller->changeMenuOptionTo($urlpart);
+        $homecontroller->changeMenuOptionTo($_GET['option']);
     }
 ?>
 
@@ -20,7 +19,7 @@
 
         if ($_SESSION["logged_in"] == true) {
             
-            echo "<li><a href=\"logout.php\">Logout</a></li>";
+            echo "<li><a href=\"?option=logout\">Logout</a></li>";
             echo "<li><input type=\"text\" name=\"search\" id=\"search\" onkeyup=\"showHint(this.value)\" placeholder=\"Search\"></li>";
             // echo "<li><p>You are logged in as:".$_SESSION["logged_in"]."</p></li>";
             

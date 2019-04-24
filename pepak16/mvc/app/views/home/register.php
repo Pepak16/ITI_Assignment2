@@ -2,41 +2,10 @@
 <html>
     <head>
         <title>Sign-up page</title>
-        <!-- <script>
-
-            //function that checks whether all fields live up to specific constraints
-            function checkFields() {
-
-                //variables initializes input from fields
-                var name = document.getElementById("name").value;
-                // var password = document.getElementById("password").value;
-                var phone = document.getElementById("phone").value;
-                // var email = document.getElementById("email").value;
-                // var zip = document.getElementById("zip").value;
-
-                var passwordConstraint = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/g;
-                var phoneConstraint = /^\+{1}[0-9]/;
-
-                //checking constraints
-                //if (passwordConstraint.test(password)) {
-                if (true) {
-                    if (phoneConstraint.test(phone)) {
-                        return true;
-                    } else {
-                        alert("Please check field constraints and try again");
-                        return false;
-                    }
-                } else {
-                    alert("Please check field constraints and try again");
-                    return false;
-                }
-            }
-        </script> -->
+        <?php include '../partials/top.php'; ?>
     </head>
     <body>
         <?php 
-            include 'top.php';
-            
             $username = $_POST['username'];
             $password = $_POST['password'];
             $password_confirm = $_POST['password_confirm'];
