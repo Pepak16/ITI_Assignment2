@@ -84,5 +84,8 @@
             <br> 
             <br>
         </div>
+        <?php 
+            include $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/views/partials/bot.php'; 
+        ?>
     </body>
 </html>

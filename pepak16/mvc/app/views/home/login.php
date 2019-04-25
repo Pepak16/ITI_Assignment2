@@ -13,12 +13,12 @@
             $password = $_POST['password'];
             
 			if (isset($_POST['submit'])) {
-				if ($homecontroller->login($username,$password)) {    
+				if ($homecontroller->login($username,$password)) {   
                     $_SESSION["logged_in"] = true;
                     echo 'You are now logged in';
                     $warningtext = "";
-                    header('Location: /mvc/public/home/succes_page.php');
-				} else {
+                    header('Location: /pepak16/mvc/app/views/home/success_page.php');
+                } else {
 					$warningtext = "Wrong info.. Please try again.";
 				}
 			}
@@ -49,8 +49,11 @@
                 <br>
             </form> 
             <?php 
-                echo '<span style="color: red;">'.$warningtext.'</span>'; 
+                echo '<span style="color: red;">'.$warningtext.'</span>';
             ?>
         </div>
+        <?php 
+            include $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/views/partials/bot.php'; 
+        ?>
     </body>
 </html>

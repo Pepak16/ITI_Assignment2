@@ -1,7 +1,22 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/core/Controller.php';
+require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/User.php';
+
+
 class HomeController extends Controller {
+
+	private $user;
+	private $userObject;
 	
+	// Personal note:
+	// An issue i used hours to solve, was that when initializing any local scoped variable, it has to be written in this way:
+	// e.g. $this->userObject = new User(); and not $this->$userObject = new User(); with the dollar sign, since it wont recognize it in that way.
+	// Pretty weird though, as i thought i could just do the same as you would declare a variable, e.g. $variablename, but its different in this situation.
+	
+	public function __construct() {
+		$this->userObject = new User();
+	}
+
 	public function index () {
 		//This is a proof of concept - we do NOT want HTML in the controllers!
 		//echo '<br><br>Home Controller Index Method<br>';
@@ -21,15 +36,13 @@ class HomeController extends Controller {
 	}
 	
 	public function login($username,$password) {
-		require 'db_connect.php';
-        if (authentificateUser($username,$password)) {
+        if ($this->userObject->authentificate($username,$password)) {
 			$_SESSION['logged_in'] = true;
 			$this->view('home/login');
-        }
+        } 
 	}
 	
 	public function logout() {
-		
 		if($this->post()) {
 			session_unset();
 			header('Location: /mvc/public/home/loggedout');

@@ -1,14 +1,13 @@
 <?php
 
-require_once 'db_config.php';
-	
+require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/core/db_config.php';
+
 class Database extends DB_Config {
 
-	public $conn;
+	private $conn;
 	
 	public function __construct() {
 		try {
-			
 			$this->conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname",
 			$this->username,
 			$this->password,
@@ -17,6 +16,7 @@ class Database extends DB_Config {
 		} catch (PDOException $e) {
 			echo "Error: " . $e->getMessage();
 		}
+		
 	}
 	
 	public function __destruct() {

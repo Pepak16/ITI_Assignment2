@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/pepak16/mvc/app/views/style/style.css">
 
-<script src="ajax.js"></script>
+<!-- <script src="ajax.js"></script> -->
 
 <div id="headertitle"><h1>Photoshare</h1></div>
 
@@ -16,7 +16,7 @@
 <ul>
     <li><a href="?option=home">Home</a></li>
     <?php 
-
+        $_SESSION["logged_in"] = false;
         if ($_SESSION["logged_in"] == true) {
             
             echo "<li><a href=\"?option=logout\">Logout</a></li>";

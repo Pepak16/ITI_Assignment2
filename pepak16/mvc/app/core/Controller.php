@@ -7,7 +7,7 @@ class Controller {
 	}
 	
 	public function view($view, $viewbag = []) {
-		require_once '../app/views/' . $view . '.php';
+		require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/views/' . $view . '.php';
 	}
 	
 	public function post () {
