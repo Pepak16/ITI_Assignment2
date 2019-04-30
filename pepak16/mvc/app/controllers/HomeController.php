@@ -36,10 +36,16 @@ class HomeController extends Controller {
 	}
 	
 	public function login($username,$password) {
-        if ($this->userObject->authentificate($username,$password)) {
-			$_SESSION['logged_in'] = true;
-			$this->view('home/login');
-        } 
+		if ($username != null && $password != null) {
+			if ($this->userObject->authentificate($username,$password)) {
+				$_SESSION['logged_in'] = true;
+				$this->view('home/login');
+				return true;
+			} 
+		} else {
+			return false;
+		}
+        
 	}
 	
 	public function logout() {

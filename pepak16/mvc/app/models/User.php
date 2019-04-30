@@ -9,13 +9,14 @@ class User extends Database {
 	protected $post;
 
 	public function __construct() { 
-		// $this->dbConnection = new Database();
+		$this->dbConnection = new Database();
 	}
 
 	public function authentificate($username,$password) {
-		$this->dbConnection = new Database();
+		// $this->dbConnection = new Database();
         $sql = 'SELECT user_id FROM user WHERE user_name = :domain_name AND user_password = :domain_pass';
-        $stmt = $pdo->prepare($sql);
+		$pdo = $this->dbConnection->getConn();
+		$stmt = $pdo->prepare($sql);
         $stmt->bindParam(':domain_name', $username);
         $stmt->bindParam(':domain_pass', $password);
         $stmt->execute();
