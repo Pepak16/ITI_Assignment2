@@ -3,7 +3,8 @@
     <head>
         <title>Login page</title>
         <?php
-            include '../partials/top.php';
+            require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/views/partials/top.php';
+            //include '../partials/top.php';
             $homecontroller = new HomeController();
         ?>
     </head>

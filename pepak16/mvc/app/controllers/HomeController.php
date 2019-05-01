@@ -6,7 +6,6 @@ require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/User.php';
 class HomeController extends Controller {
 
 	private $user;
-	private $userObject;
 	
 	// Personal note:
 	// An issue i used hours to solve, was that when initializing any local scoped variable, it has to be written in this way:
@@ -14,7 +13,7 @@ class HomeController extends Controller {
 	// Pretty weird though, as i thought i could just do the same as you would declare a variable, e.g. $variablename, but its different in this situation.
 	
 	public function __construct() {
-		$this->userObject = new User();
+		
 	}
 
 	public function index () {
@@ -36,8 +35,9 @@ class HomeController extends Controller {
 	}
 	
 	public function login($username,$password) {
+		$userObject = new User();
 		if ($username != null && $password != null) {
-			if ($this->userObject->authentificate($username,$password)) {
+			if ($userObject->authentificate($username,$password)) {
 				$_SESSION['logged_in'] = true;
 				$this->view('home/login');
 				return true;
@@ -78,6 +78,11 @@ class HomeController extends Controller {
 			default:
 				break;
 		}
+	}
+
+	public function showAllPosts() {
+		require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/User.php';
+		return $this->$userObject->fetchPosts();
 	}
 	
 }

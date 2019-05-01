@@ -30,7 +30,12 @@ class User extends Database {
 	}
 
 	public function fetchPosts() {
-		return true;
+		$sql = 'SELECT * FROM user_post ORDER BY user_post_time DESC';
+		$pdo = $this->dbConnection->getConn();
+		$data = $pdo->query($sql);
+		$result = $data->fetchAll();
+		return $result;
 	}
 
 }
+

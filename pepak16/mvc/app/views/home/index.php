@@ -2,7 +2,7 @@
 <html>
 <head>
     <?php
-        include '../app/views/partials/top.php';
+        require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/views/partials/top.php';
     ?>
     <title>Assignment 1 - Persha</title> 
 
@@ -31,7 +31,7 @@
             }
             xmlhttp.open("GET", "getSearchResults.php?search="+str, true);
             xmlhttp.send();
-           
+            
         }
     }
     </script>
@@ -47,7 +47,7 @@
         $desc = $_POST['description'];
         $submietset = $_POST['submit'];
 
-        if ($_SESSION["logged_in"] == true) {
+        // if ($_SESSION["logged_in"] == true) {
             if(isset($imageset)){
                 $errors= array();
                 $file_name = $_FILES['image']['name'];
@@ -96,8 +96,8 @@
 
     <?php 
      
-        include '../app/views/partials/bot.php'; 
-        $allPosts = viewAllPosts();
+        $controllerObject = new HomeController();
+        $allPosts = $controllerObject->showAllPosts();
 
         // AJAX
         echo "<p style=\"color: white;\"><span id=\"txtHint\"></span></p>";
@@ -107,7 +107,7 @@
         
         
         
-        if ($_POST['search'] == "") {
+        //if ($_POST['search'] == "") {
             foreach ($allPosts as $post) {
                 echo    '<div class="gallery">
                         <img src="'.$post[4].'">
@@ -115,18 +115,19 @@
                         <div class="desc">'.$post[3].'</div>
                         </div>';
             }
-        }
+        //}
         
         echo '</span>';
 
     ?> 
     
-
+ 
 
     </div>
-        <?php } else { 
+        <?php 
+        // } else { 
             echo '</br></br><div id="content"><h2>For viewing/posting pictures, please login.</h2></div>';
-        } 
+        // } 
         include '../app/views/partials/bot.php';
         ?>
 
