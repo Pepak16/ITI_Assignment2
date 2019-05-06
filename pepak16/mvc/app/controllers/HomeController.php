@@ -13,7 +13,6 @@ class HomeController extends Controller {
 	// Pretty weird though, as i thought i could just do the same as you would declare a variable, e.g. $variablename, but its different in this situation.
 	
 	public function __construct() {
-		
 	}
 
 	public function index () {
@@ -64,7 +63,16 @@ class HomeController extends Controller {
 	public function changeMenuOptionTo($name) {
 		switch ($name) {
 			case "home":
+				// $_SESSION["disable_searchbar"] = false;
 				header('Location: /pepak16/mvc/public');
+				break;
+			case "searchPage":
+				// $_SESSION["disable_searchbar"] = false;
+				header('Location: /pepak16/mvc/app/views/home/search_page.php');
+				break;
+			case "showAllUsers":
+				// $_SESSION["disable_searchbar"] = true;
+				header('Location: /pepak16/mvc/app/views/home/list_of_all_users.php');
 				break;
 			case "login":
 				header('Location: /pepak16/mvc/app/views/home/login.php');
@@ -73,7 +81,8 @@ class HomeController extends Controller {
 				header('Location: /pepak16/mvc/app/views/home/register.php');
 				break;
 			case "logout":
-				header('Location: /pepak16/mvc/app/views/home/loggedout.php');
+				session_destroy();
+				header('Location: /pepak16/mvc/public');
 				break;
 			default:
 				break;
@@ -81,8 +90,29 @@ class HomeController extends Controller {
 	}
 
 	public function showAllPosts() {
-		require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/User.php';
-		return $this->$userObject->fetchPosts();
+		// require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/User.php';
+		$userObject = new User();
+		return $userObject->fetchPosts();
+	}
+
+	public function register($username, $password, $phone, $email, $zipcode) {
+		$userObject = new User();
+		return $userObject->insertUser($username, $password, $phone, $email, $zipcode);
+	}
+
+	public function postAPicture($header,$desc,$url) {
+		$userObject = new User();
+        if ($userObject->insertPost($header,$desc,$url)) {
+            return true;
+        } else {
+            return false;
+        }
+	}
+
+	public function showAllUsers() {
+		// require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/User.php';
+		$userObject = new User();
+		return $userObject->getUsers();
 	}
 	
 }

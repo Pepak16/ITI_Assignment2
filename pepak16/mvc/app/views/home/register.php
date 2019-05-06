@@ -2,7 +2,10 @@
 <html>
     <head>
         <title>Sign-up page</title>
-        <?php include '../partials/top.php'; ?>
+        <?php 
+            require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/views/partials/top.php';
+            $homecontroller = new HomeController();
+        ?>
     </head>
     <body>
         <?php 
@@ -19,10 +22,12 @@
                     $warningtext = "Please fill the whole form.<br><br>";
                 } else {
                     if ($password == $password_confirm) {
-                        if (registerUser($username, $password, $phonenumber, $email, $zipcode)) {   
+                        if ($homecontroller->register($username, $password, $phonenumber, $email, $zipcode)) {   
                             $_SESSION["logged_in"] = true;
                             $warningtext = "";
-                            header('Location: succes_page.php');
+                            $_SESSION["registered_user"] = true;
+                            $_SESSION["username"] = $username;
+                            header('Location: /pepak16/mvc/app/views/home/success_page.php');
                         } else {
                             $warningtext = "Cannot register user.. Something went wrong. Please try again.<br><br>";
                         }

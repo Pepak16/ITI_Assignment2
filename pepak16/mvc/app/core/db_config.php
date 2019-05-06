@@ -1,12 +1,10 @@
 <?php
 class DB_Config {
 	
-	protected $servername = '25.1.147.8';
+	protected $servername = 'localhost';
 	protected $username = 'root';
-	protected $password = 'toor';
-	protected $dbname = 'itproject';
+	protected $password = 'santana01p';
+	protected $dbname = 'iti_project';
 
 }
-	
-	
 	

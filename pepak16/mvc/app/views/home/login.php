@@ -16,9 +16,11 @@
 			if (isset($_POST['submit'])) {
 				if ($homecontroller->login($username,$password)) {   
                     $_SESSION["logged_in"] = true;
-                    echo 'You are now logged in';
+                    $_SESSION["username"] = $username;
+                    //echo 'You are now logged in';
                     $warningtext = "";
-                    header('Location: /pepak16/mvc/app/views/home/success_page.php');
+                    //header('Location: /pepak16/mvc/app/views/home/success_page.php');
+                    header('Location: /pepak16/mvc/public');
                 } else {
 					$warningtext = "Wrong info.. Please try again.";
 				}

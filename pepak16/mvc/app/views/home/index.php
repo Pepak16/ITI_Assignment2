@@ -3,43 +3,26 @@
 <head>
     <?php
         require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/views/partials/top.php';
+        $homecontroller = new HomeController();
+        
+        // if ($_SESSION["logged_in"] == true) {
+        //     echo 'logged in is trueeee';
+        // } else {
+        //     echo 'logged in is FALSE';
+        // }
     ?>
-    <title>Assignment 1 - Persha</title> 
+    <title>Assignment 1 - Persha</title>
 
-    <script type="text/javascript">
-    function showHint(str) {
-        if (str.length == 0) { 
-            document.getElementById("txtHint").innerHTML = "";
-            document.getElementById("defaultpage").innerHTML = "<?php 
-            foreach ($allPosts as $post) {
-                echo    '<div class="gallery">
-                        <img src="'.$post[4].'">
-                        <div class="header"><h2>'.$post[2].'</h2></div>
-                        <div class="desc">'.$post[3].'</div>
-                        </div>';
-            } ?>";
-            document.getElementById("txtHint").innerHTML = "<div id=\"content\">Please refresh page to view all content again.</div>";
-            return;
-        } else {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("txtHint").innerHTML = this.responseText;
-                    document.getElementById("defaultpage").innerHTML = "";
-                    
-                }
-            }
-            xmlhttp.open("GET", "getSearchResults.php?search="+str, true);
-            xmlhttp.send();
-            
-        }
-    }
-    </script>
+    
 
 </head>
 
 <body>
         <?php 
+        // ALWAYS remember to use $_SERVER['DOCUMENT_ROOT'] when uploading files, 
+        // since it works best this way! And for fetching pictures, 
+        // just using ordinary slash url method, e.g. /app/uploads/....
+
         $successtext = "";
         $warningtext = "";
         $imageset = $_FILES['image'];
@@ -47,7 +30,7 @@
         $desc = $_POST['description'];
         $submietset = $_POST['submit'];
 
-        // if ($_SESSION["logged_in"] == true) {
+        if ($_SESSION["logged_in"] == true) {
             if(isset($imageset)){
                 $errors= array();
                 $file_name = $_FILES['image']['name'];
@@ -55,12 +38,17 @@
                 $file_tmp = $_FILES['image']['tmp_name'];
                 $file_type = $_FILES['image']['type'];
                 $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
-                
+                //chmod("uploads/", 755); 
                 if(empty($errors)==true && $file_tmp != null) {
-                    $file_dest = "uploads/".$file_name;
+                    //$file_dest = "uploads/".$file_name;
+                    $file_dest = $_SERVER['DOCUMENT_ROOT']."/pepak16/mvc/app/uploads/".$file_name;
                     move_uploaded_file($file_tmp,$file_dest);
-                    postAPicture($header,$desc,$file_dest);
+                    // $file_dest = "uploads/".$file_name;
+                    // echo $file_dest;
+                    $file_dest = "uploads/".$file_name;
+                    $homecontroller->postAPicture($header,$desc,$file_dest);
                     $successtext = "Uploaded successfully!";
+                    echo $_FILES["post_image"]["error"];
                 } else {
                     $warningtext = "Something went wrong... </br><b>Error type:</b> ".$errors;
                 }
@@ -70,7 +58,7 @@
         <div id="content">
         
             <br><br>
-        <p>Create a post here:</p>
+        <p>Post your picture here:</p>
         <form action = "" method = "POST" enctype = "multipart/form-data">
                 <input type="text" name="header" id="header" placeholder="Title"/> 
                 <br>
@@ -90,44 +78,46 @@
             echo '<span style="color: red;">'.$warningtext.'</span>'; 
         ?>
         <br>
+        
     </div>
     <div id="posts">
 
 
     <?php 
-     
         $controllerObject = new HomeController();
         $allPosts = $controllerObject->showAllPosts();
 
-        // AJAX
-        echo "<p style=\"color: white;\"><span id=\"txtHint\"></span></p>";
+        // // AJAX
+        // echo "<p style=\"color: white;\"><span id=\"txtHint\"></span></p>";
         
-        echo '<span id="defaultpage">';
-            
+        // echo '<span id="defaultpage">';
         
         
         
         //if ($_POST['search'] == "") {
             foreach ($allPosts as $post) {
+                $imagedir = 'app/'.$post[4];
                 echo    '<div class="gallery">
-                        <img src="'.$post[4].'">
+                        <img src="'.$imagedir.'">
                         <div class="header"><h2>'.$post[2].'</h2></div>
                         <div class="desc">'.$post[3].'</div>
                         </div>';
             }
+            
         //}
         
         echo '</span>';
 
     ?> 
     
- 
+
 
     </div>
         <?php 
-        // } else { 
+        
+        } else { 
             echo '</br></br><div id="content"><h2>For viewing/posting pictures, please login.</h2></div>';
-        // } 
+        } 
         include '../app/views/partials/bot.php';
         ?>
 

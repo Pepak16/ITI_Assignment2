@@ -1,3 +1,12 @@
+table {
+    width:80%; 
+    background-color: rgb(29, 41, 41);
+}
+
+table td {
+    color: white;
+}
+
 body {
     background-image: linear-gradient(to right, darkslategrey , black);
 }
@@ -96,9 +105,15 @@ li a {
     text-decoration: none;
 }
 
+li p {
+    color: white;
+    text-align: center;
+    /* padding: 0px 300px; */
+}
+
 li input {
     display: block;
-    color: white;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -123,7 +138,7 @@ h2 {
     color: white;
 }
 
-/*Hjemmesidets titel: Instakham photos*/
+/*Hjemmesidets titel*/
 #headertitle {
     color: white;
     font-size: 40px;
@@ -142,26 +157,10 @@ h2 {
     margin-left: 1%;
 }
 
-/* #mobileScale {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%) } */
-
 #content {
     width: 200px;
     margin: auto;
 }
-
-/* #content h1 {
-    margin: 100;
-    margin-right: -50%;
-    font-size: 30px;
-} */
-
-
 
 label {
     color: white;
@@ -183,27 +182,27 @@ div.gallery {
     border: 1px solid #ccc;
     float: left;
     background-color: rgb(104, 104, 104);
-  }
+}
   
-  /* div.gallery:hover {
-    border: 1px solid #777;
-  } */
-  
-  div.gallery img {
+/* div.gallery:hover {
+border: 1px solid #777;
+} */
+
+div.gallery img {
     height: auto;
     width: 1000px;
-  }
-  
-  div.header {
-    color: white;
-    text-align: center;
-  }
+}
 
-  div.desc {
-    color: whitesmoke;
-    padding: 15px;
-    text-align: center;
-  }
+div.header {
+color: white;
+text-align: center;
+}
+
+div.desc {
+color: whitesmoke;
+padding: 15px;
+text-align: center;
+}
 
 .footer {
     background-color: grey;
