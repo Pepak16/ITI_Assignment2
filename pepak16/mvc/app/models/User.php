@@ -4,15 +4,29 @@ require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/core/Database.php';
 class User extends Database {
 	
 	protected $dbConnection;
+
+	protected $userid;
 	protected $username;
 	protected $password;
+	protected $phonenumber;
+	protected $email;
+	protected $zipcode;
 	protected $post;
 
 	public function __construct() { 
-		$this->dbConnection = new Database();
+		
+	}
+
+	public function getUsername() {
+		return $this->username;
+	}
+
+	public function setUsername($username) {
+		$this->username;
 	}
 
 	public function authentificate($username,$password) {
+		$this->dbConnection = new Database();
 		// $this->dbConnection = new Database();
         $sql = 'SELECT user_id FROM user WHERE user_name = :domain_name AND user_password = :domain_pass';
 		$pdo = $this->dbConnection->getConn();
@@ -30,6 +44,7 @@ class User extends Database {
 	}
 
 	public function fetchPosts() {
+		$this->dbConnection = new Database();
 		$sql = 'SELECT * FROM user_post ORDER BY user_post_time DESC';
 		$pdo = $this->dbConnection->getConn();
 		$data = $pdo->query($sql);
@@ -38,6 +53,7 @@ class User extends Database {
 	}
 
 	function insertUser($un, $pw, $pn, $em, $zc) {
+		$this->dbConnection = new Database();
 		$sql = 'INSERT INTO user 
 				SELECT * FROM (SELECT UUID(),:domain_name,:domain_pass,:domain_phone,:domain_email,:domain_zipcode) AS tmp
 				WHERE NOT EXISTS (SELECT `user_name` FROM user WHERE `user_name` = :domain_name) LIMIT 1';
@@ -60,6 +76,7 @@ class User extends Database {
 	}
 	
 	function insertPost($hd,$dc,$url) {
+		$this->dbConnection = new Database();
 		$sql = "INSERT INTO user_post VALUES (:domain_id, now(), :domain_header, :domain_desc, :domain_url)";
 		$pdo = $this->dbConnection->getConn();
 		$stmt = $pdo->prepare($sql);
@@ -79,6 +96,7 @@ class User extends Database {
 	}
 
 	function getUsers() {
+		$this->dbConnection = new Database();
 		$sql = "SELECT user_name, user_phonenumber, user_email, user_zipcode FROM user";
 		$pdo = $this->dbConnection->getConn();
 		$stmt = $pdo->prepare($sql);

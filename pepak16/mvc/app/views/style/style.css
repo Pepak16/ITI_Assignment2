@@ -1,6 +1,6 @@
 table {
     width:80%; 
-    background-color: rgb(29, 41, 41);
+    background-color: rgb(146, 21, 21);
 }
 
 table td {
@@ -8,7 +8,7 @@ table td {
 }
 
 body {
-    background-image: linear-gradient(to right, darkslategrey , black);
+    background-image: linear-gradient(to right, rgb(77, 36, 36), black);
 }
 
 input[type=text] { 
@@ -66,7 +66,7 @@ form input[type=button]:hover {
 }
 
 input[type=submit] {
-    background-color: blue; /* Green */
+    background-color: rgb(146, 21, 21); /* Green */
     border: none;
     color: white;
     padding: 5px 20px;
@@ -148,7 +148,8 @@ h2 {
     list-style-type: none;
     padding: 0;
     overflow: hidden;
-    background-color: rgba(0, 0, 139, 0.418);
+    /* background-color: rgba(0, 0, 139, 0.418); */
+    background-color: rgb(146, 21, 21)
 }
 
 #headertitle h1 { 
@@ -205,10 +206,11 @@ text-align: center;
 }
 
 .footer {
-    background-color: grey;
+    background-color: black;
+    color: white;
     position: fixed;
     bottom: 0;
     width: 99%;
-    font-size: 28px;
+    font-size: 20px;
 
 }
