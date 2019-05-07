@@ -15,7 +15,7 @@
                 foreach($userArray as $user){
 
                     $shortUser['user_id'] = $user['user_id'];
-                    $shortUser['username'] = $user['username'];
+                    $shortUser['username'] = $user['12username'];
                     $usersObject[] = $shortUser;
                 }
 
@@ -23,7 +23,11 @@
                 
             }
         }
-
+        
+        public function test() {
+            echo 'hello';
+        }
     }
 
+    
 ?>

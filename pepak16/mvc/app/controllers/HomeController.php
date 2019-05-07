@@ -17,9 +17,13 @@ class HomeController extends Controller {
 
 	public function index () {
 		//This is a proof of concept - we do NOT want HTML in the controllers!
-		//echo '<br><br>Home Controller Index Method<br>';
+		// echo '<br><br>Home Controller Index Method<br>';
 		// echo 'Param: ' . $param . '<br><br>';
-		//header('Location: app/views/index.php');
+		header('Location: app/views/home/index.php');
+	}
+
+	public function test() {
+		echo "hej jeg hedder bjarke paludan!";
 	}
 	
 	public function other ($param1 = 'first parameter', $param2 = 'second parameter') {

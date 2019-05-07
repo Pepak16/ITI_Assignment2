@@ -96,7 +96,7 @@
         
         //if ($_POST['search'] == "") {
             foreach ($allPosts as $post) {
-                $imagedir = 'app/'.$post[4];
+                $imagedir = '../../'.$post[4];
                 echo    '<div class="gallery">
                         <img src="'.$imagedir.'">
                         <div class="header"><h2>'.$post[2].'</h2></div>
