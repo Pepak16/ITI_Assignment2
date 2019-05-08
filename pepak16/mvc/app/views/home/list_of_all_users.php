@@ -24,10 +24,10 @@
             </tr>';
         foreach ($usersarray as $user) {
             echo '<tr>';
-                echo '<td>'.$user[0].'</td>';
                 echo '<td>'.$user[1].'</td>';
                 echo '<td>'.$user[2].'</td>';
                 echo '<td>'.$user[3].'</td>';
+                echo '<td>'.$user[4].'</td>';
             echo '</tr>';
             
         }

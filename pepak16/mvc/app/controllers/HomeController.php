@@ -40,7 +40,7 @@ class HomeController extends Controller {
 	public function login($username,$password) {
 		$userObject = new User();
 		if ($username != null && $password != null) {
-			if ($userObject->authentificate($username,$password)) {
+			if ($userObject->authentificate($username,$password) != null) {
 				$_SESSION['logged_in'] = true;
 				$this->view('home/login');
 				return true;
@@ -96,7 +96,7 @@ class HomeController extends Controller {
 	public function showAllPosts() {
 		// require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/User.php';
 		$userObject = new User();
-		return $userObject->fetchPosts();
+		return $userObject->fetchAllPosts();
 	}
 
 	public function register($username, $password, $phone, $email, $zipcode) {
@@ -104,9 +104,9 @@ class HomeController extends Controller {
 		return $userObject->insertUser($username, $password, $phone, $email, $zipcode);
 	}
 
-	public function postAPicture($header,$desc,$url) {
+	public function postAPicture($header,$desc,$url,$postbyid) {
 		$userObject = new User();
-        if ($userObject->insertPost($header,$desc,$url)) {
+        if ($userObject->insertPost($header,$desc,$url,$postbyid)) {
             return true;
         } else {
             return false;

@@ -14,9 +14,11 @@
             $password = $_POST['password'];
             
 			if (isset($_POST['submit'])) {
-				if ($homecontroller->login($username,$password)) {   
+                $loginid = $homecontroller->login($username,$password);
+				if ($loginid != null) {   
                     $_SESSION["logged_in"] = true;
                     $_SESSION["username"] = $username;
+                    $_SESSION["userid"] = $loginid;
                     //echo 'You are now logged in';
                     $warningtext = "";
                     //header('Location: /pepak16/mvc/app/views/home/success_page.php');
