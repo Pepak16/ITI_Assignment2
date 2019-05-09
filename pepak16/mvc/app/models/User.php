@@ -5,95 +5,21 @@ class User extends Database {
 	
 	protected $dbConnection;
 
-	protected $userid;
-	protected $username;
-	protected $password;
-	protected $phonenumber;
-	protected $email;
-	protected $zipcode;
-	protected $post;
-
-	// public function __construct($userid,$username,$password,$phonenumber,$email,$zipcode,$post) { 
-	// 	$this->userid = $userid;
-	// 	$this->username = $username;
-	// 	$this->password = $password;
-	// 	$this->phonenumber = $phonenumber;
-	// 	$this->email = $email;
-	// 	$this->zipcode = $zipcode;
-	// 	$this->post = $post;
-	// }
-
-	public function __construct() {
-		
-	}
-
-	public function getUserid() {
-		return $this->userid;
-	}
-
-	public function setUserid($userid) {
-		$this->userid;
-	}
-
-	public function getUsername() {
-		return $this->username;
-	}
-
-	public function setUsername($username) {
-		$this->username;
-	}
-
-	public function getPassword() {
-		return $this->password;
-	}
-
-	public function setPassword($password) {
-		$this->password;
-	}
-
-	public function getPhonenumber() {
-		return $this->phonenumber;
-	}
-
-	public function setPhonenumber($phonenumber) {
-		$this->phonenumber;
-	}
-
-	public function getEmail() {
-		return $this->email;
-	}
-
-	public function setEmail($email) {
-		$this->email;
-	}
-
-	public function getZipcode() {
-		return $this->zipcode;
-	}
-
-	public function setZipcode($zipcode) {
-		$this->zipcode;
-	}
-
-	public function getPost() {
-		return $this->post;
-	}
-
-	public function setPost($post) {
-		$this->post;
-	}
-
-	public function authentificate($username,$password) {
+	public function getUserIdByUsername($username) {
 		$this->dbConnection = new Database();
 		// $this->dbConnection = new Database();
-        $sql = 'SELECT user_id FROM user WHERE user_name = :domain_name AND user_password = :domain_pass';
+        $sql = 'SELECT user_id FROM user WHERE user_name = :domain_name';
 		$pdo = $this->dbConnection->getConn();
 		$stmt = $pdo->prepare($sql);
         $stmt->bindParam(':domain_name', $username);
-        $stmt->bindParam(':domain_pass', $password);
+        //$stmt->bindParam(':domain_pass', $password);
         $stmt->execute();
-        $result = $stmt->fetchAll();
-        return $result[0];
+		$result = $stmt->fetchAll(PDO::FETCH_NUM);
+		// foreach ($result as $f) {
+		// 	return $f[0];
+		// }
+		//echo $result[0][0];
+        return $result[0][0];
         // if ($result[0] == NULL) {
         //     return false;
         // } else {
@@ -121,17 +47,10 @@ class User extends Database {
 		return $result;
 	}
 
-
-
-
-
-
-
-
 	function insertUser($un, $pw, $pn, $em, $zc) {
 		$this->dbConnection = new Database();
-		$sql = 'INSERT INTO user 
-				SELECT * FROM (SELECT UUID(),:domain_name,:domain_pass,:domain_phone,:domain_email,:domain_zipcode) AS tmp
+		$sql = 'INSERT INTO user (user_name, user_password, user_phonenumber, user_email, user_zipcode)
+				SELECT * FROM (SELECT :domain_name,:domain_pass,:domain_phone,:domain_email,:domain_zipcode) AS tmp
 				WHERE NOT EXISTS (SELECT `user_name` FROM user WHERE `user_name` = :domain_name) LIMIT 1';
 		$pdo = $this->dbConnection->getConn();
 		$stmt = $pdo->prepare($sql);
@@ -151,7 +70,7 @@ class User extends Database {
 		//return true;
 	}
 	
-	function insertPost($hd,$dc,$url, $postedbyid) {
+	function insertPost($hd,$dc,$url,$postedbyid) {
 		$this->dbConnection = new Database();
 		$sql = "INSERT INTO user_post (user_post_time, user_post_header, user_post_description, user_post_url, post_by) VALUES (now(), :domain_header, :domain_desc, :domain_url, :postbyid)";
 		$pdo = $this->dbConnection->getConn();
@@ -180,6 +99,17 @@ class User extends Database {
 		$stmt->execute();
 		$userTableArray = $stmt->fetchAll(PDO::FETCH_NUM);
 		return $userTableArray;
+	}
+
+	function getHashedPasswordById($userid) {
+		$this->dbConnection = new Database();
+		$sql = "SELECT user_password FROM user WHERE user_id = :domain_user_id";
+		$pdo = $this->dbConnection->getConn();
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':domain_user_id', $userid);
+		$stmt->execute();
+		$userpass = $stmt->fetchAll(PDO::FETCH_NUM);
+		return $userpass[0][0];
 	}
 
 }

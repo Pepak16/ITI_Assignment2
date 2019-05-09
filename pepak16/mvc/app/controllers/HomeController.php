@@ -40,13 +40,19 @@ class HomeController extends Controller {
 	public function login($username,$password) {
 		$userObject = new User();
 		if ($username != null && $password != null) {
-			if ($userObject->authentificate($username,$password) != null) {
-				$_SESSION['logged_in'] = true;
-				$this->view('home/login');
-				return true;
-			} 
+			$userid = $userObject->getUserIdByUsername($username);
+			$hashed_password = $this->getHashPassword($userid);
+			if(password_verify($password, $hashed_password)) {
+				if ($userid != null) {
+					$_SESSION['logged_in'] = true;
+					//$this->view('home/login');
+					return $userid;
+				} else {
+					return null;
+				}
+			}
 		} else {
-			return false;
+			return null;
 		}
         
 	}
@@ -117,6 +123,13 @@ class HomeController extends Controller {
 		// require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/User.php';
 		$userObject = new User();
 		return $userObject->getUsers();
+	}
+
+	//private method
+	private function getHashPassword($userid) {
+		// require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/User.php';
+		$userObject = new User();
+		return $userObject->getHashedPasswordById($userid);
 	}
 	
 }

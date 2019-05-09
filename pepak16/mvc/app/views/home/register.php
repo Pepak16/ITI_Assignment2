@@ -22,7 +22,8 @@
                     $warningtext = "Please fill the whole form.<br><br>";
                 } else {
                     if ($password == $password_confirm) {
-                        if ($homecontroller->register($username, $password, $phonenumber, $email, $zipcode)) {   
+                        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                        if ($homecontroller->register($username, $hashed_password, $phonenumber, $email, $zipcode)) {  
                             $_SESSION["logged_in"] = true;
                             $warningtext = "";
                             $_SESSION["registered_user"] = true;

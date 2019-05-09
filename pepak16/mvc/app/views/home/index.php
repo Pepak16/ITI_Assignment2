@@ -46,10 +46,10 @@
                     // $file_dest = "uploads/".$file_name;
                     // echo $file_dest;
                     $file_dest = "uploads/".$file_name;
-                    if ($_SESSION["userid"] != null) {
-                        $useridwithcomma = $_SESSION["userid"] + ",";
-                    }
-                    $homecontroller->postAPicture($header,$desc,$file_dest,$useridwithcomma);
+                    // if ($_SESSION["userid"] != null) {
+                    //     $useridwithcomma = $_SESSION["userid"] + ",";
+                    // }
+                    $homecontroller->postAPicture($header,$desc,$file_dest,$_SESSION["userid"]);
                     $successtext = "Uploaded successfully!";
                     echo $_FILES["post_image"]["error"];
                 } else {

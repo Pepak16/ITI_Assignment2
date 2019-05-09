@@ -15,14 +15,17 @@
             
 			if (isset($_POST['submit'])) {
                 $loginid = $homecontroller->login($username,$password);
-				if ($loginid != null) {   
-                    $_SESSION["logged_in"] = true;
-                    $_SESSION["username"] = $username;
-                    $_SESSION["userid"] = $loginid;
-                    //echo 'You are now logged in';
-                    $warningtext = "";
-                    //header('Location: /pepak16/mvc/app/views/home/success_page.php');
-                    header('Location: /pepak16/mvc/public');
+				if ($loginid) {
+                        //if ($hashed_password == $password) {
+                            $_SESSION["logged_in"] = true;
+                            $_SESSION["username"] = $username;
+                            $_SESSION["userid"] = $loginid;
+                            //echo 'You are now logged in';
+                            $warningtext = "";
+                            //header('Location: /pepak16/mvc/app/views/home/success_page.php');
+                            header('Location: /pepak16/mvc/public');
+                        //}
+                    
                 } else {
 					$warningtext = "Wrong info.. Please try again.";
 				}
@@ -36,7 +39,7 @@
                 <br>
                 <br>
                 <input type="text" name="username" id="username"/> 
-                <br>  
+                <br>
                 <br>
                 <label title="Password" for="password">Password</label>
                 <br>
