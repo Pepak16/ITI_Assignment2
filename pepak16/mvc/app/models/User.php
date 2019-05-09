@@ -72,7 +72,7 @@ class User extends Database {
 	
 	function insertPost($hd,$dc,$url,$postedbyid) {
 		$this->dbConnection = new Database();
-		$sql = "INSERT INTO user_post (user_post_time, user_post_header, user_post_description, user_post_url, post_by) VALUES (now(), :domain_header, :domain_desc, :domain_url, :postbyid)";
+		$sql = "INSERT INTO user_post (user_post_time, user_post_header, user_post_description, user_post_url, post_by) VALUES (now(), :domain_header, :domain_desc, :domain_url, :postbyid); SELECT LAST_INSERT_ID();";
 		$pdo = $this->dbConnection->getConn();
 		$stmt = $pdo->prepare($sql);
 		//$stmt->bindParam(':domain_id', uniqid());
@@ -81,13 +81,12 @@ class User extends Database {
 		$stmt->bindParam(':domain_url', $url);
 		$stmt->bindParam(':postbyid', $postedbyid);
 		$stmt->execute();
-		$count = $stmt->rowCount();
-
-		if ($count == 1) {
-			return true;
-		} else {
-			return false;
-		}
+		$lastId = $pdo->lastInsertId();
+		return $lastId;
+		// $id = $stmt->fetchAll();
+		// return $id[0][0];
+		//$pictureid = $stmt->fetchAll(PDO::FETCH_NUM);
+		//return $pictureid[0][0];
           
 	}
 

@@ -96,8 +96,9 @@
                                     echo "Logged in! ";
                                     
                                     $insertCheck = $userObject->insertPost($imgheader,$imgdesc,$insertion_url,$userid);
-                                    if ($insertCheck) {
-    
+                                    
+                                    if ($insertCheck != null) {
+                                        echo 'Picture ID: '. $insertCheck.'! ';
                                             // $image_name = "testimage";
                                             // $path = "../".$image_name.".png";
                                             
