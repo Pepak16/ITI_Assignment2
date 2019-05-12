@@ -3,11 +3,7 @@
 require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/Post.php';
     class apiController extends Controller {
         
-        // public function __construct() {
-        //     header('Acces-Control-Allow-Origin: *');
-        //     header('Content-Type: application/json; charset=UTF-8');            
-        // }
-
+        //GET all users
         public function users() {
             if ($this->get()) {
                 $userObject = $this->model('User');
@@ -27,6 +23,7 @@ require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/Post.php';
 
         public function pictures($param,$userid) {
             $userObject = $this->model('User');
+            
             //GET user pictures
             if ($this->get()) {
                 
@@ -44,9 +41,7 @@ require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/Post.php';
                                     $postArray['image'] = $base64decodedimg;
                                     $postArray['title'] = $userPost[2];
                                     $postArray['description'] = $userPost[3];
-                                    //$postArray['user_post_id'] = $userPost[0];
-                                    //$postArray['user_post_time'] = $userPost[1];
-                                    
+
                                     $usersObject[] = $postArray;
                                 }
                                 
@@ -54,23 +49,19 @@ require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/Post.php';
                             
                         }
                     }
-                    //echo "\n";
+                    
                     echo json_encode($usersObject);
-                    //echo "\n\n";
+                    
                 }
             }
 
+            //POST user pictures
             if ($this->post()) {
                 if ($param == "user") {
                     
-                    //header("Content-Type:application/json");
+                    
                     if (isset($_SERVER['REQUEST_METHOD']) && ($_SERVER['REQUEST_METHOD'] === 'POST')) {
                         $strJsonFileContents = file_get_contents("php://input");
-                        
-                        //	echo json_decode($strJsonFileContents);
-        
-                        //	print_r($strJsonFileContents);
-        
                         $decoder = json_decode($strJsonFileContents, true);
                         
                         $img_base64 = $decoder["image"];
@@ -89,16 +80,15 @@ require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/Post.php';
                                     $imgstring = $img_base64;
                                     $ext = '';
                                     $image_name = uniqid();
+                                    
                                     //checking whether the base64 code contains any of the given cases for picture extension.
                                     preg_match("/\b(webp|jpeg|JPEG|jpg|JPG|png|PNG|gif|GIF)\b/", $imgstring, $output_array);
-                                    //echo $output_array[0];
+
                                     $image_name_with_ext = $image_name.'.'.$output_array[0];
     
                                     $path = '../app/uploads/'.$image_name_with_ext;
     
                                     $insertion_url = 'uploads/'.$image_name_with_ext;
-    
-                                    //echo "Logged in! ";
                                     
                                     $returnedId = $userObject->insertPost($imgheader,$imgdesc,$insertion_url,$userid);
                                     
@@ -114,29 +104,17 @@ require_once $_SERVER["DOCUMENT_ROOT"].'/pepak16/mvc/app/models/Post.php';
     
     
                                             if($status){
-                                                //$imageIdString='{"image_id": "'.$returnedId.'"}"';
                                                 $val = json_encode(array(
                                                     "image_id"=>$returnedId,
-                                                    // "test2" =>'test',
-                                                    // "description" => 'description'
                                                 ));
                                                 
                                                 $data = json_decode($val);
-                                                // return $data;
-                                                //echo "\n";
-                                                // $postObject = new Post();
-                                                // $postObject->setPostId($insertCheck);
-                                                
-                                                //str_replace("\'","'",$imageIdString);
                                                 echo json_encode($data);
-                                                //echo "\n\n";
-                                             //echo "Successfully Uploaded! ";
-                                            }else{
-                                             //echo "Upload failed... ";
+                                                
+                                            } else{
+                                                echo "Upload failed... ";
                                             }
                                         
-    
-                                        //echo "Picture uploaded successfully! ";
                                     } else {
                                         echo "Cannot upload... ";
                                     }
