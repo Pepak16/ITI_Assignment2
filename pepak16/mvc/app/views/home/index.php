@@ -11,7 +11,7 @@
         //     echo 'logged in is FALSE';
         // }
     ?>
-    <title>Assignment 1 - Persha</title>
+    <title>Assignment 2 - Persha</title>
 
     
 

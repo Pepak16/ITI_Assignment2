@@ -87,7 +87,7 @@ class User extends Database {
 		// return $id[0][0];
 		//$pictureid = $stmt->fetchAll(PDO::FETCH_NUM);
 		//return $pictureid[0][0];
-          
+		
 	}
 
 	function getUsers() {
